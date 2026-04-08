@@ -1,0 +1,23 @@
+name: Nuitka compilation
+
+on:
+  workflow_dispatch:
+jobs:
+    build:
+      runs-on: windows-latest
+      steps:
+        - uses: actions/checkout@v4
+        - uses: actions/setup-python@v5
+          with:
+            python-version: "3.14"
+        - name: Build exe
+          uses: Nuitka/Nuitka-Action@v1.4
+          with:
+            script-name: turtleGraphics.py
+            product-name: 1.0
+            file-description: Turtle Race
+        - name: Upload on artifacts
+          uses: actions/upload-artifacts@v4
+          with:
+            name: release
+            path: .
